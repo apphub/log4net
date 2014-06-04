@@ -14,7 +14,15 @@ namespace AppHub.Log4net.Sample.Controllers
 		public ActionResult LogError()
 		{
 			var logger = LogManager.GetLogger(typeof (HomeController));
-			logger.Fatal("Fatal error - " + DateTime.Now);
+			logger.Warn("Warn logger");
+			try
+			{
+				throw new Exception("Fatal error - " + DateTime.Now);
+			}
+			catch (Exception ex)
+			{
+				logger.Fatal(ex.Message, ex);
+			}
 
 			return RedirectToAction("Index");
 		}
